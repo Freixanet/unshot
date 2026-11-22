@@ -20,11 +20,13 @@ Phone photo ──► 1. Art director (Gemini or OpenAI vision, JSON output)
 
 ## Before / After
 
-| Before (phone photo) | Catalog / Hero Shot | Lifestyle |
+| Before (input photo) | Catalog / Hero Shot | Lifestyle |
 |:---:|:---:|:---:|
-| _add `assets/before.jpg`_ | _add `assets/after-catalog.jpg`_ | _add `assets/after-lifestyle.jpg`_ |
+| <img src="assets/before.jpg" width="260" alt="Input: olive oil bottle on a plain white background"> | <img src="assets/after-catalog.jpg" width="260" alt="Catalog / Hero Shot: the bottle on a travertine block with an olive branch and warm directional light"> | <img src="assets/after-lifestyle.jpg" width="260" alt="Lifestyle: the bottle on a stone kitchen counter with bread, a dish of oil and window light"> |
 
-> Placeholder — see [`assets/README.md`](assets/README.md) for the expected files. Replace each cell with `![](assets/<file>)` once real examples are added.
+Same bottle, cap, label layout and brand typography in both scenes; the liquid casts realistic golden caustics on the surface.
+
+> **Honest note:** the tiny paragraph under the logo is unreadable in the input, and the two outputs render it with different wording. That is exactly the [small-print limitation](#known-limitations) — retouch that block or start from a sharper photo before publishing.
 
 ## Why it doesn't look like AI slop
 
