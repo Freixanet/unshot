@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "unshot"
+version = "0.1.0"
+description = "Model-agnostic, scale-aware engine that turns a phone photo of a product into commercial catalog and lifestyle shots."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+authors = [{ name = "Freixanet" }]
+keywords = ["product-photography", "ecommerce", "image-generation", "gemini", "openai", "telegram-bot"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Operating System :: OS Independent",
+    "Topic :: Multimedia :: Graphics",
+]
+dependencies = [
+    "google-genai",
+    "openai",
+    "pillow",
+    "pydantic>=2",
+    "python-dotenv",
+    "python-telegram-bot>=21",
+    "typer",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+unshot = "unshot.cli:app"
+unshot-bot = "unshot.bot:main"
+
+[project.urls]
+Repository = "https://github.com/Freixanet/unshot"
+
+# prompts/ at the repo root is the single source of truth; it is shipped inside
+# the package as `unshot.prompts` so the engine can load it after installation.
+[tool.setuptools]
+package-dir = { "" = "src", "unshot.prompts" = "prompts" }
+packages = ["unshot", "unshot.prompts"]
+
+[tool.setuptools.package-data]
+"unshot.prompts" = ["*.md"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
