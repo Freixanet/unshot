@@ -32,7 +32,7 @@ class PlanFotografico(BaseModel):
     escenas: list[EscenaPrompt] = Field(min_length=2, max_length=2)
 
     @model_validator(mode="after")
-    def _one_of_each(self) -> "PlanFotografico":
+    def _one_of_each(self) -> PlanFotografico:
         tipos = sorted(e.tipo for e in self.escenas)
         if tipos != ["catalogo", "lifestyle"]:
             raise ValueError("escenas must contain exactly one 'catalogo' and one 'lifestyle' scene")

@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=69", "wheel"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -29,7 +29,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest"]
+dev = ["pytest", "ruff"]
 
 [project.scripts]
 unshot = "unshot.cli:app"
@@ -46,6 +46,16 @@ packages = ["unshot", "unshot.prompts"]
 
 [tool.setuptools.package-data]
 "unshot.prompts" = ["*.md"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+# B008: Typer declares CLI options as call defaults by design.
+ignore = ["B008"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

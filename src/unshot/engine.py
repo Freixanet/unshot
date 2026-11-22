@@ -16,7 +16,7 @@ import io
 import logging
 from collections.abc import Awaitable, Callable
 from dataclasses import dataclass
-from functools import lru_cache
+from functools import cache
 from importlib import resources
 from pathlib import Path
 from typing import TypeVar
@@ -68,7 +68,7 @@ def prepare_image(raw: bytes, max_side: int = MAX_SIDE) -> bytes:
 _REPO_PROMPTS = Path(__file__).resolve().parents[2] / "prompts"
 
 
-@lru_cache(maxsize=None)
+@cache
 def load_prompt(name: str = "api-system.md") -> str:
     """Load a prompt from the single source of truth (repo ``prompts/`` folder).
 
@@ -222,9 +222,7 @@ async def render_scene(img_png: bytes, escena: EscenaPrompt, settings: Settings)
         async def call():
             image = io.BytesIO(img_png)  # fresh buffer on every retry
             image.name = "product.png"
-            return await client.images.edit(
-                model=settings.image_model, image=image, prompt=escena.prompt_en, **kwargs
-            )
+            return await client.images.edit(model=settings.image_model, image=image, prompt=escena.prompt_en, **kwargs)
 
         result = await with_retries(call)
 

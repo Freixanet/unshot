@@ -1,5 +1,9 @@
 # unshot
 
+[![CI](https://github.com/Freixanet/unshot/actions/workflows/ci.yml/badge.svg)](https://github.com/Freixanet/unshot/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
 **Send a phone photo of your product. Get back studio-grade catalog and lifestyle shots — of the exact same product.**
 
 unshot is a model-agnostic, scale-aware engine for commercial product photography. A vision model acts as the *art director* (analyses the product, classifies its scale, reads the label and writes two precise prompts); an image model acts as the *photographer* (edits the original photo into each scene). You can run it for free inside ChatGPT / Claude / Gemini, or fully automated through a CLI and a Telegram bot.
@@ -108,7 +112,8 @@ tests/              unit tests with mocks — no real API calls
 ```
 
 ```bash
-pytest   # runs offline
+pytest                                  # offline, no API calls
+ruff check src tests && ruff format --check src tests
 ```
 
 ## Known limitations

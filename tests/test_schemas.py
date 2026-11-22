@@ -46,4 +46,6 @@ def test_rejects_unknown_scale_and_empty_prompt():
         )
     bad = _scene("lifestyle") | {"prompt_en": ""}
     with pytest.raises(ValidationError):
-        PlanFotografico.model_validate({"escala": "pequena", "aviso_etiqueta": "", "escenas": [_scene("catalogo"), bad]})
+        PlanFotografico.model_validate(
+            {"escala": "pequena", "aviso_etiqueta": "", "escenas": [_scene("catalogo"), bad]}
+        )

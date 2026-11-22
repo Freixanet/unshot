@@ -5,7 +5,6 @@ from __future__ import annotations
 import asyncio
 import time
 from pathlib import Path
-from typing import Optional
 
 import typer
 
@@ -36,15 +35,21 @@ def _root(
 
 @app.command()
 def generate(
-    image: Path = typer.Argument(..., exists=True, dir_okay=False, readable=True, help="Product photo (JPG/PNG/WEBP/HEIC supported by Pillow)."),
+    image: Path = typer.Argument(
+        ..., exists=True, dir_okay=False, readable=True, help="Product photo (JPG/PNG/WEBP/HEIC supported by Pillow)."
+    ),
     out: Path = typer.Option(Path("output"), "--out", "-o", help="Output folder."),
     note: str = typer.Option("", "--note", "-n", help="Extra art direction, e.g. 'dark elegant background'."),
-    size: Optional[str] = typer.Option(None, "--size", help="Overrides IMAGE_SIZE (e.g. 1024x1280)."),
-    quality: Optional[str] = typer.Option(None, "--quality", help="Overrides IMAGE_QUALITY (e.g. medium, high)."),
-    image_model: Optional[str] = typer.Option(None, "--image-model", help="Overrides IMAGE_MODEL."),
-    prompt_model: Optional[str] = typer.Option(None, "--prompt-model", help="Overrides PROMPT_MODEL."),
-    prompt_provider: Optional[str] = typer.Option(None, "--prompt-provider", help="Overrides PROMPT_PROVIDER (gemini | openai)."),
-    prompts_only: bool = typer.Option(False, "--prompts-only", help="Run only step 1 and print the prompts (no image API cost)."),
+    size: str | None = typer.Option(None, "--size", help="Overrides IMAGE_SIZE (e.g. 1024x1280)."),
+    quality: str | None = typer.Option(None, "--quality", help="Overrides IMAGE_QUALITY (e.g. medium, high)."),
+    image_model: str | None = typer.Option(None, "--image-model", help="Overrides IMAGE_MODEL."),
+    prompt_model: str | None = typer.Option(None, "--prompt-model", help="Overrides PROMPT_MODEL."),
+    prompt_provider: str | None = typer.Option(
+        None, "--prompt-provider", help="Overrides PROMPT_PROVIDER (gemini | openai)."
+    ),
+    prompts_only: bool = typer.Option(
+        False, "--prompts-only", help="Run only step 1 and print the prompts (no image API cost)."
+    ),
     env_file: Path = typer.Option(Path(".env"), "--env-file", help="Path to the .env file."),
 ) -> None:
     """Generate the Catalog / Hero Shot and Lifestyle scenes for IMAGE."""
@@ -63,7 +68,7 @@ def generate(
             settings.require_for_generation()
     except ConfigError as exc:
         typer.secho(f"Config error: {exc}", fg=typer.colors.RED, err=True)
-        raise typer.Exit(2)
+        raise typer.Exit(2) from None
 
     code = asyncio.run(_run(image, out, note, settings, prompts_only))
     raise typer.Exit(code)

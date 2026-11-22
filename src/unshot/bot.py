@@ -63,9 +63,7 @@ async def handle_image(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
         return
 
     aviso = f"\n⚠️ {plan.aviso_etiqueta}" if plan.aviso_etiqueta else ""
-    await status.edit_text(
-        f"🎨 Escala: {ESCALA_LABELS[plan.escala]}. Generando 2 escenas en paralelo…{aviso}"
-    )
+    await status.edit_text(f"🎨 Escala: {ESCALA_LABELS[plan.escala]}. Generando 2 escenas en paralelo…{aviso}")
 
     failures = 0
     for finished in asyncio.as_completed(start_scene_tasks(img_png, plan, settings)):
@@ -123,11 +121,13 @@ def main(argv: list[str] | None = None) -> None:
         settings.require_for_generation()
     except ConfigError as exc:
         print(f"Config error: {exc}", file=sys.stderr)
-        raise SystemExit(2)
+        raise SystemExit(2) from None
 
     log.info(
         "unshot bot running · prompts=%s:%s · images=%s",
-        settings.prompt_provider, settings.prompt_model, settings.image_model,
+        settings.prompt_provider,
+        settings.prompt_model,
+        settings.image_model,
     )
     build_application(settings).run_polling(allowed_updates=Update.ALL_TYPES)
 

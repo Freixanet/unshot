@@ -7,11 +7,17 @@ import pytest
 PROMPTS = Path(__file__).resolve().parents[1] / "prompts"
 FILES = ["api-system.md", "unshot-skill.md", "chatgpt-gpt.md"]
 REQUIRED = [
-    "85mm f/2.8", "50mm f/2.2",          # small / tabletop
-    "50mm f/4", "35-50mm f/2.8",          # medium / standalone
-    "24-35mm f/5.6-f/8", "1:1",           # large / architectural
-    "sauna", "jacuzzi", "pedestal",
-    "contact shadow", "refraction",
+    "85mm f/2.8",
+    "50mm f/2.2",  # small / tabletop
+    "50mm f/4",
+    "35-50mm f/2.8",  # medium / standalone
+    "24-35mm f/5.6-f/8",
+    "1:1",  # large / architectural
+    "sauna",
+    "jacuzzi",
+    "pedestal",
+    "contact shadow",
+    "refraction",
     "never invent",
 ]
 

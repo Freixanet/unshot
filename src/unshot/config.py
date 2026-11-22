@@ -42,7 +42,7 @@ class Settings:
     telegram_bot_token: str | None = None
     telegram_allowed_users: frozenset[int] = frozenset()
 
-    def with_overrides(self, **overrides: str | None) -> "Settings":
+    def with_overrides(self, **overrides: str | None) -> Settings:
         """Return a copy where every non-empty override replaces the current value."""
         valid = {f.name for f in fields(self)}
         unknown = set(overrides) - valid
@@ -55,9 +55,7 @@ class Settings:
 
     def validate_provider(self) -> None:
         if self.prompt_provider not in PROVIDERS:
-            raise ConfigError(
-                f"PROMPT_PROVIDER must be one of {PROVIDERS}, got {self.prompt_provider!r}"
-            )
+            raise ConfigError(f"PROMPT_PROVIDER must be one of {PROVIDERS}, got {self.prompt_provider!r}")
 
     def require(self, *names: str) -> None:
         """Fail with a clear message listing every missing required setting."""
